@@ -1,6 +1,3 @@
-# To add a new cell, type '# %%'
-# To add a new markdown cell, type '# %% [markdown]'
-# %%
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -14,29 +11,25 @@ email_password = '70o27Rfnq01f'
 clientes = {'Emanuel': 'emaro03@gmail.com', 'Rayniel': 'emanuel.almonte@hotmail.com'}
 archivos = {'ejemplo1.txt': 'emaro03@gmail.com', 'ejemplo2.txt': 'emanuel.almonte@hotmail.com'}
 
-for usuario, mails in archivos.items():
+for usuario, mails in clientes.items():
     email_send = (mails)
     msg = MIMEMultipart()
     msg['From'] = email_user
     msg['To'] = ",".join(email_send)
-    msg['Subject'] = 'PRUEBA'+ ' ' + usuario
+    msg['Subject'] = 'Factura eléctrica del cliente'+ ' ' + usuario
 
-    body = 'dafsdfdsafdsaf' + ' ' + usuario
+    body = 'Estimado Sr.' + ' ' + usuario + ' ' + 'el siguiente correo es para hacerle llegar su factura eléctrica'
     msg.attach(MIMEText(body,'html'))
 
-    part = MIMEBase('application','octet-stream')
-    part.set_payload((open(usuario,'rb')).read())
-    encoders.encode_base64(part)
-    part.add_header('Content-Disposition', 'attachment; filename="{0}"'.format(os.path.basename(usuario)))
-    msg.attach(part)
+    for archivo, correo in archivos.items():
+        part = MIMEBase('application','octet-stream')
+        part.set_payload((open(archivo,'rb')).read())
+        encoders.encode_base64(part)
+        part.add_header('Content-Disposition', 'attachment; filename="{0}"'.format(os.path.basename(archivo)))
+        msg.attach(part)
 
     mail = smtplib.SMTP('smtp.gmail.com',587)
     mail.starttls()
     mail.login(email_user,email_password)
     mail.sendmail(email_user, email_send, msg.as_string())
     mail.quit()
-
-
-# %%
-
-
