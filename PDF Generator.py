@@ -1,4 +1,13 @@
+from reportlab.platypus import SimpleDocTemplate
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import Table
+from reportlab.platypus import Image
+from reportlab.platypus import TableStyle
+from reportlab.lib import colors
 import datetime
+
+fileName = 'pdfTable.pdf'
+pdf = SimpleDocTemplate(fileName,pagesize=letter)
 
 class Pin:
 	title = ''
@@ -8,14 +17,14 @@ class Pin:
 	date = datetime.datetime.now() 
 	picPath = ''
 
-def getPins():
+def getPins():  
     pin1 = Pin()
     pin1.title = 'Popeye'
     pin1.refNo = 'wer-2'
     pin1.PIN = '5498-6438-9951-91435'
     pin1.serialNo = '07347153284647310'
-    pin1.date = datetime.datetime(2019, 12, 31, 22, 38, 44, 100000)
-    pin1.picPath = 'resources\popeye.jpg'
+    pin1.date = datetime.datetime.now()
+    pin1.picPath = r'C:\Users\Owner\Documents\GitHub\ENNOVA\Imagenes\ennova.png'
 
     pin2 = Pin()
     pin2.title = 'He-Man'
@@ -23,7 +32,7 @@ def getPins():
     pin2.PIN = '7131-6411-8451-92495'
     pin2.serialNo = '21047053904655310'
     pin2.date = datetime.datetime(2019, 7, 23, 20, 12, 37, 100000)
-    pin2.picPath = 'resources\heman.jpg' 
+    pin2.picPath = r'C:\Users\Owner\Documents\GitHub\ENNOVA\Imagenes\ennova.png'
 
     pin3 = Pin()
     pin3.title = 'Johnny Bravo'
@@ -31,7 +40,7 @@ def getPins():
     pin3.PIN = '0029-6435-7422-42940'
     pin3.serialNo = '87027653903475601'
     pin3.date = datetime.datetime(2019, 8, 7, 17, 52, 18, 100000)
-    pin3.picPath = 'resources\johnnyBravo.jpg'
+    pin3.picPath = r'C:\Users\Owner\Documents\GitHub\ENNOVA\Imagenes\ennova.png'
 
     pin4 = Pin()
     pin4.title = 'Son Goku'
@@ -39,26 +48,15 @@ def getPins():
     pin4.PIN = '0536-4441-3422-83701'
     pin4.serialNo = '38122657903475000'
     pin4.date = datetime.datetime(2019, 6, 13, 19, 31, 39, 100000)
-    pin4.picPath = 'resources\songoku.jpg'
+    pin4.picPath = r'C:\Users\Owner\Documents\GitHub\ENNOVA\Imagenes\ennova.png'
 
     return [pin1,pin2,pin3,pin4]
-
-fileName = 'pdfTable.pdf'
-
-from reportlab.platypus import SimpleDocTemplate
-from reportlab.lib.pagesizes import letter
-
-pdf = SimpleDocTemplate(fileName,pagesize=letter)
-
-from reportlab.platypus import Table
-from reportlab.platypus import Image
-from reportlab.platypus import TableStyle
-from reportlab.lib import colors
 
 def genPinTable(pin):
     pinElemTable = None
 
     pinElemWidth = 250
+
     # 1) Build Structure
     titleTable = Table([
         [pin.title]
